@@ -1,0 +1,21 @@
+services:
+  manager:
+    environment:
+      DOCKER_CONFIG: /tmp/docker-config
+    volumes:
+      - docker_config:/tmp/docker-config
+
+  worker1:
+    environment:
+      DOCKER_CONFIG: /tmp/docker-config
+    volumes:
+      - docker_config:/tmp/docker-config
+
+  worker2:
+    environment:
+      DOCKER_CONFIG: /tmp/docker-config
+    volumes:
+      - docker_config:/tmp/docker-config
+
+volumes:
+  docker_config:

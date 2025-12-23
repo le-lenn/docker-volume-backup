@@ -41,6 +41,11 @@ IMAGE_TAG=v2.30.0 ./test.sh
 
 By default, two local images are created that persist the image data and provide it to containers at runtime.
 
+#### `ISOLATE_DOCKER_CONFIG`
+
+By default, the sandbox mounts `${HOME}/.docker/config.json` so host credentials are available.
+In case your local docker config is not compatible with this behaviour, you can force an empty Docker config in the run by setting `ISOLATE_DOCKER_CONFIG=1 ./test.sh`.
+
 ## Understanding the test setup
 
 The test setup runs each test case in an isolated Docker container, which itself is running an otherwise unused Docker daemon.

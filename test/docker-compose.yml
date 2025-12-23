@@ -3,8 +3,6 @@ services:
     hostname: manager
     privileged: true
     image: offen/docker-volume-backup:test-sandbox
-    environment:
-      DOCKER_CONFIG: /tmp/docker-config
     healthcheck:
       test: ["CMD", "docker", "info"]
       interval: 1s
@@ -12,7 +10,7 @@ services:
       retries: 50
     volumes:
       - ./:/code
-      - docker_config:/tmp/docker-config
+      - ${HOME}/.docker/config.json:/root/.docker/config.json
       - ${TARBALL:-.}:/cache/image.tar.gz
       - docker_volume_backup_test_sandbox_image:/var/lib/docker/image
       - docker_volume_backup_test_sandbox_containerd:/var/lib/docker/containerd
@@ -22,7 +20,7 @@ services:
     hostname: worker1
     volumes:
       - ./:/code
-      - docker_config:/tmp/docker-config
+      - ${HOME}/.docker/config.json:/root/.docker/config.json
       - ${TARBALL:-.}:/cache/image.tar.gz
       - docker_volume_backup_test_sandbox_image:/var/lib/docker/image
       - docker_volume_backup_test_sandbox_containerd_1:/var/lib/docker/containerd
@@ -33,7 +31,7 @@ services:
     hostname: worker2
     volumes:
       - ./:/code
-      - docker_config:/tmp/docker-config
+      - ${HOME}/.docker/config.json:/root/.docker/config.json
       - ${TARBALL:-.}:/cache/image.tar.gz
       - docker_volume_backup_test_sandbox_image:/var/lib/docker/image
       - docker_volume_backup_test_sandbox_containerd_2:/var/lib/docker/containerd
@@ -45,4 +43,3 @@ volumes:
   docker_volume_backup_test_sandbox_containerd:
   docker_volume_backup_test_sandbox_containerd_1:
   docker_volume_backup_test_sandbox_containerd_2:
-  docker_config:
